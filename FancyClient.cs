@@ -2,7 +2,7 @@
 {
     public class FancyClient
     {
-        public void Configure(Models.ClientConfiguration config)
+        public static void Configure(Models.ClientConfiguration config)
         {
             InternalData.Configuration = config;
         }

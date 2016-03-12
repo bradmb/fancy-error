@@ -63,6 +63,8 @@ namespace FancyError
             return InternalData.ErrorPageTemplate
                            .Replace("{EXCEPTION_TYPE}", exceptionType)
                            .Replace("{EXCEPTION_MESSAGE}", ex.Message)
+                           .Replace("{STATUS_URL}", InternalData.Configuration.StatusLink)
+                           .Replace("{SUPPORT_URL}", InternalData.Configuration.SupportLink)
                            .Replace("{OUTAGE}", IsPossibleOutage(ex) ? "show-outage" : "hide-outage")
                            .Replace("{APP_TITLE}", InternalData.Configuration.ApplicationName);
         }
@@ -84,7 +86,7 @@ namespace FancyError
             {
                 var encounter = InternalData.Encounters[errorKey];
                 if ((DateTime.UtcNow - encounter.LastEncounter) < InternalData.Configuration.ErrorCountTimeout
-                    && encounter.TotalEncounters >= InternalData.Configuration.ErrorCountBeforeTrend)
+                    && encounter.TotalEncounters >= InternalData.Configuration.ErrorCountBeforeTrend - 1)
                 {
                     isMajorIssue = true;
                 }

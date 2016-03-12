@@ -42,12 +42,41 @@
     font-weight: lighter;
 }
 
+@media(max-width:1299px) {
+    #fancyerror-sidebar {
+        width: 100%;
+    }
+}
+
+@media(min-width:1300px) {
+    #fancyerror-sidebar {
+        width: 300px;
+    }
+}
+
 #fancyerror-sidebar {
     float: left;
-    width: 300px;
+    height: 100%;
     padding-right: 5%;
 
     color: #ffffff;
+}
+
+#fancyerror-sidebar .outage-data {
+    margin-bottom: 20px;
+}
+
+#fancyerror-body hr {
+    border: solid 1px #ff0000;
+}
+
+#fancyerror-sidebar .exception-data h3 {
+    font-size: 14pt;
+    margin-bottom: 0;
+}
+
+#fancyerror-sidebar .exception-data p {
+    margin-top: 5px;
 }
 
 #fancyerror-sidebar .potential-outage.hide-outage {
@@ -68,6 +97,12 @@
     margin-bottom: 10px;
 }
 
+#fancyerror-body a {
+    color: #f7ff35;
+    text-decoration: none;
+    text-wrap: none;
+}
+
 #fancyerror-sidebar .no-outage-trend .outage-alert {
     background-color: #00ff15;
     text-align: center;
@@ -78,9 +113,18 @@
     margin-bottom: 10px;
 }
 
+@media(min-width:1300px) {
+    #fancyerror-details {
+        margin-left: 300px;
+    }
+
+    #fancyerror-details hr {
+        display: none;
+    }
+}
+
 #fancyerror-details {
     width: auto;
-    margin-left: 300px;
 
     color: #ffffff;
     min-height: 200px;

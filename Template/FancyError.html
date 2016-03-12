@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>{APP_TITLE}</title>
+    <title>Sorry, we've run into an error | {APP_TITLE}</title>
 
-    <link href="/Content/fancy.css" rel="stylesheet" />
+    <style type="text/css">
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#860000}#fancyerror-header{font-weight:bold;text-align:center;background-color:#a00;color:#fff;text-shadow:2px 2px #000;padding:5px;width:50%;margin:auto;border-radius:10px;margin-top:50px}#fancyerror-header h1{font-size:25pt}#fancyerror-body{width:50%;margin:auto;margin-top:20px}#fancyerror-exception h2{margin:0;font-size:12pt}#fancyerror-exception h3{margin:0;margin-bottom:10px;font-size:8pt;font-weight:lighter}@media(max-width:1299px){#fancyerror-sidebar{width:100%}}@media(min-width:1300px){#fancyerror-sidebar{width:300px}}#fancyerror-sidebar{float:left;height:100%;padding-right:5%;color:#fff}#fancyerror-sidebar .outage-data{margin-bottom:20px}#fancyerror-body hr{border:solid 1px #f00}#fancyerror-sidebar .exception-data h3{font-size:14pt;margin-bottom:0}#fancyerror-sidebar .exception-data p{margin-top:5px}#fancyerror-sidebar .potential-outage.hide-outage{display:none}#fancyerror-sidebar .no-outage-trend.show-outage{display:none}#fancyerror-sidebar .potential-outage .outage-alert{background-color:#ffd800;text-align:center;font-weight:bold;color:#000;padding:5px;border-radius:50px;margin-bottom:10px}#fancyerror-body a{color:#f7ff35;text-decoration:none;text-wrap:none}#fancyerror-sidebar .no-outage-trend .outage-alert{background-color:#00ff15;text-align:center;font-weight:bold;color:#000;padding:5px;border-radius:50px;margin-bottom:10px}@media(min-width:1300px){#fancyerror-details{margin-left:300px}#fancyerror-details hr{display:none}}#fancyerror-details{width:auto;color:#fff;min-height:200px}#fancyerror-details p:first-of-type{margin-top:0}
+    </style>
 </head>
 <body>
     <div id="fancyerror-header">
@@ -14,26 +16,52 @@
     </div>
     <div id="fancyerror-body">
         <div id="fancyerror-sidebar">
-            <div class="potential-outage {OUTAGE}">
+            <div class="outage-data potential-outage {OUTAGE}">
                 <div class="outage-alert">
                     POTENTIAL OUTAGE DETECTED
                 </div>
 
-                Based on information available, we appear to experiencing a potential application outage.
+                Based on information available, we appear to experiencing a potential application outage. At this time
+                we would suggest visiting our <a class="status-link" href="{STATUS_URL}">application status page</a> to view information
+                about current known issues.
             </div>
 
-            <div class="no-outage-trend {OUTAGE}">
+            <div class="outage-data no-outage-trend {OUTAGE}">
                 <div class="outage-alert">
                     NO TREND DETECTED
                 </div>
 
                 At this time we are not noticing a trend of similiar issues.
             </div>
+
+            <div class="exception-data">
+                <hr />
+
+                <h3>Error Information</h3>
+
+                <p>
+                    The application reported that this is a <strong>{EXCEPTION_TYPE}</strong> error,
+                    with the reason listed as <em>{EXCEPTION_MESSAGE}</em>. This information may be useful
+                    to your support team, so please provide this information if asked for it.
+                </p>
+            </div>
         </div>
         <div id="fancyerror-details">
+            <hr />
+
             <p>
                 While trying to load the page you requested, our systems ran into a problem. It's never fun
                 to see an error message, and we definitly want to work to ensure you don't continue to see them.
+            </p>
+
+            <p>
+                If you believe this issue is something that needs to be investigated, then we'd ask that you please submit
+                a support ticket to our team, who will investigate the issue. Please ensure to provide the error information,
+                listed on the left side of the page.
+            </p>
+
+            <p>
+                <a class="support-link" href="{SUPPORT_URL}">Submit a Support Request</a>
             </p>
         </div>
     </div>
