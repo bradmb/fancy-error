@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>{APP_TITLE}</title>
+
+    <link href="/Content/fancy.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="fancyerror-header">
+        <h1>
+            Sorry, it seems we've run into a problem.
+        </h1>
+    </div>
+    <div id="fancyerror-body">
+        <div id="fancyerror-sidebar">
+            <div class="potential-outage {OUTAGE}">
+                <div class="outage-alert">
+                    POTENTIAL OUTAGE DETECTED
+                </div>
+
+                Based on information available, we appear to experiencing a potential application outage.
+            </div>
+
+            <div class="no-outage-trend {OUTAGE}">
+                <div class="outage-alert">
+                    NO TREND DETECTED
+                </div>
+
+                At this time we are not noticing a trend of similiar issues.
+            </div>
+        </div>
+        <div id="fancyerror-details">
+            <p>
+                While trying to load the page you requested, our systems ran into a problem. It's never fun
+                to see an error message, and we definitly want to work to ensure you don't continue to see them.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

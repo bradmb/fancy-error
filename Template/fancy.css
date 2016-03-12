@@ -1,0 +1,91 @@
+﻿body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color:#860000
+}
+
+#fancyerror-header {
+    font-weight: bold;
+    text-align: center;
+
+
+    background-color: #aa0000;
+    color: #ffffff;
+    text-shadow: 2px 2px #000000;
+
+    padding: 5px;
+    width: 50%;
+    margin: auto;
+
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+#fancyerror-header h1 {
+    font-size: 25pt;
+}
+
+#fancyerror-body {
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#fancyerror-exception h2 {
+    margin: 0;
+    font-size: 12pt;
+}
+
+#fancyerror-exception h3 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 8pt;
+    font-weight: lighter;
+}
+
+#fancyerror-sidebar {
+    float: left;
+    width: 300px;
+    padding-right: 5%;
+
+    color: #ffffff;
+}
+
+#fancyerror-sidebar .potential-outage.hide-outage {
+    display: none;
+}
+
+#fancyerror-sidebar .no-outage-trend.show-outage {
+    display: none;
+}
+
+#fancyerror-sidebar .potential-outage .outage-alert {
+    background-color: #ffd800;
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+    padding: 5px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+#fancyerror-sidebar .no-outage-trend .outage-alert {
+    background-color: #00ff15;
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+    padding: 5px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+#fancyerror-details {
+    width: auto;
+    margin-left: 300px;
+
+    color: #ffffff;
+    min-height: 200px;
+}
+
+#fancyerror-details p:first-of-type {
+    margin-top: 0;
+}
