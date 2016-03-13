@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sorry, we've run into an error | {APP_TITLE}</title>
+
+    <style type="text/css">
+        {STYLESHEET}
+    </style>
+</head>
+<body>
+    <div id="fancyerror-header">
+        <h1>
+            Sorry, it seems we've run into a problem.
+        </h1>
+    </div>
+    <div id="fancyerror-body">
+        <div id="fancyerror-sidebar">
+            <div class="outage-data potential-outage {OUTAGE}">
+                <div class="outage-alert">
+                    POTENTIAL OUTAGE DETECTED
+                </div>
+
+                Based on information available, we appear to experiencing a potential application outage.
+
+                {STATUS_PAGE_TEXT}
+            </div>
+
+            <div class="outage-data no-outage-trend {OUTAGE}">
+                <div class="outage-alert">
+                    NO TREND DETECTED
+                </div>
+
+                At this time we are not noticing a trend of similiar issues.
+            </div>
+
+            <div class="exception-data">
+                <hr />
+
+                <h3>Error Information</h3>
+
+                <p>
+                    The application reported that this is a <strong>{EXCEPTION_TYPE}</strong> error,
+                    with the reason listed as <em>{EXCEPTION_MESSAGE}</em>. This information may be useful
+                    to your support team, so please provide this information if asked for it.
+                </p>
+            </div>
+        </div>
+        <div id="fancyerror-details">
+            <hr />
+
+            <p>
+                While trying to load the page you requested, our systems ran into a problem. It's never fun
+                to see an error message, and we definitly want to work to ensure you don't continue to see them.
+            </p>
+
+            {SUPPORT_PAGE_TEXT}
+        </div>
+    </div>
+</body>
+</html>
