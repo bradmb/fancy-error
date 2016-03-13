@@ -43,16 +43,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorTemplate.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorTemplate.resx</DependentUpon>
+    </Compile>
     <Compile Include="FancyClient.cs" />
     <Compile Include="HttpHandler.cs" />
     <Compile Include="Models\ClientConfiguration.cs" />
     <Compile Include="Models\ErrorData.cs" />
+    <Compile Include="PageRendering.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InternalData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Template\fancy.css" />
-    <Content Include="Template\FancyError.html" />
+    <Resource Include="Template\fancy.css" />
+    <Resource Include="Template\template.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorTemplate.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

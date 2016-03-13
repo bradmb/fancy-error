@@ -18,7 +18,7 @@ namespace FancyError
         public void Init(HttpApplication context)
         {
             context.Error += OnException;
-            InternalData.ErrorPageTemplate = GetErrorPageTemplate();
+            InternalData.ErrorPageTemplate = PageRendering.GetErrorPageTemplate();
         }
 
         /// <summary>
@@ -31,42 +31,15 @@ namespace FancyError
             var app = (HttpApplication)sender;
             var error = app.Server.GetLastError();
 
-            var customErrorPage = RenderErrorPage(error);
+            var visitorGuid = InternalData.Configuration.TrackUniqueVisitors
+                              ? app.Context.Request.UserHostAddress
+                              : Guid.NewGuid().ToString();
+
+            var customErrorPage = PageRendering.RenderErrorPage(error, IsPossibleOutage(error, visitorGuid));
 
             app.Context.Response.Clear();
             app.Context.Response.Write(customErrorPage);
             app.Context.Response.End();
-        }
-
-        /// <summary>
-        /// Loads the error page template from the file
-        /// </summary>
-        /// <returns></returns>
-        private string GetErrorPageTemplate()
-        {
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var errorPage = System.IO.File.ReadAllText(baseDirectory + InternalData.Configuration.TemplateLocation);
-
-            return errorPage;
-        }
-
-        /// <summary>
-        /// Builds the error page using the exception data and page template
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
-        private string RenderErrorPage(Exception ex)
-        {
-            var exceptionTypeData = ex.GetType();
-            var exceptionType = string.Format("{0}.{1}", exceptionTypeData.Namespace, exceptionTypeData.Name);
-
-            return InternalData.ErrorPageTemplate
-                           .Replace("{EXCEPTION_TYPE}", exceptionType)
-                           .Replace("{EXCEPTION_MESSAGE}", ex.Message)
-                           .Replace("{STATUS_URL}", InternalData.Configuration.StatusLink)
-                           .Replace("{SUPPORT_URL}", InternalData.Configuration.SupportLink)
-                           .Replace("{OUTAGE}", IsPossibleOutage(ex) ? "show-outage" : "hide-outage")
-                           .Replace("{APP_TITLE}", InternalData.Configuration.ApplicationName);
         }
 
         /// <summary>
@@ -75,7 +48,7 @@ namespace FancyError
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
-        private bool IsPossibleOutage(Exception ex)
+        private bool IsPossibleOutage(Exception ex, string clientAddress)
         {
             var isMajorIssue = false;
 
@@ -85,20 +58,26 @@ namespace FancyError
             if (InternalData.Encounters.ContainsKey(errorKey))
             {
                 var encounter = InternalData.Encounters[errorKey];
-                if ((DateTime.UtcNow - encounter.LastEncounter) < InternalData.Configuration.ErrorCountTimeout
-                    && encounter.TotalEncounters >= InternalData.Configuration.ErrorCountBeforeTrend - 1)
+                var withinTimeoutLimits = (DateTime.UtcNow - encounter.LastEncounter) < InternalData.Configuration.ErrorCountTimeout;
+                var meetsUserThreshold = encounter.UsersEncountered.Count >= InternalData.Configuration.ErrorCountBeforeTrend - 1;
+
+                if (withinTimeoutLimits && meetsUserThreshold)
                 {
                     isMajorIssue = true;
                 }
 
                 encounter.LastEncounter = DateTime.UtcNow;
-                encounter.TotalEncounters++;
+
+                if (!encounter.UsersEncountered.Contains(clientAddress))
+                {
+                    encounter.UsersEncountered.Add(clientAddress);
+                }
             } else
             {
                 InternalData.Encounters.Add(errorKey, new Models.ErrorData
                 {
                     LastEncounter = DateTime.UtcNow,
-                    TotalEncounters = 1
+                    UsersEncountered = new List<string> { clientAddress }
                 });
             }
 
